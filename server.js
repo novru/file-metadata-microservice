@@ -1,6 +1,10 @@
 var express = require('express');
 var cors = require('cors');
 require('dotenv').config()
+const multer  = require('multer')
+const upload = multer({ dest: 'uploads/' })
+
+const file_metadata = require("./routes/file-metadata-router")
 
 var app = express();
 
@@ -11,6 +15,7 @@ app.get('/', function (req, res) {
     res.sendFile(process.cwd() + '/views/index.html');
 });
 
+app.use("/api", upload.single('upfile'), file_metadata)
 
 
 
